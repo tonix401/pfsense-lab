@@ -1,0 +1,6 @@
+.vagrant/
+iso/
+*.box
+__pycache__/
+packer/output-*/
+packer_cache/

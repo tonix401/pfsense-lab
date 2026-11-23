@@ -9,3 +9,4 @@ cd "$here/packer"
 packer init .
 packer build -force .
 vagrant box add --force pfsense-lab "$here/pfsense-lab.box"
+rm "$here/pfsense-lab.box" # Vagrant keeps its own copy

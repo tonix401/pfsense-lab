@@ -53,7 +53,7 @@ scripts/build-box.sh
 
 1. `scripts/get-iso.sh` downloads the pfSense CE 2.7.2 ISO from Netgate's mirror (or a second mirror) and checks it against SHA256 hashes pinned in the script.
 2. Packer (`packer/pfsense.pkr.hcl`) boots the ISO headless and types the installer answers. It then loads `packer/http/config.xml` (interfaces, firewall rules, Suricata settings), installs Suricata, downloads the ET Open rules and powers off.
-3. The result is `pfsense-lab.box`, added to Vagrant as `pfsense-lab`. You can copy the box file to another machine and run `vagrant box add pfsense-lab pfsense-lab.box` there instead of building.
+3. The result is added to Vagrant as box `pfsense-lab`. To share it without rebuilding, export it with `vagrant box repackage pfsense-lab virtualbox 0` (writes `package.box`) and run `vagrant box add pfsense-lab package.box` on the other machine.
 
 ## Bring-up
 
@@ -73,9 +73,6 @@ removes the route again.
 `packer/http/config.xml` is the source of truth. Change things in the web GUI, export with
 *Diagnostics → Backup & Restore*, replace that file, delete any `<authorizedkeys>` you added,
 and run `scripts/build-box.sh` again.
-
-`pfsense/lab-setup.php` and `pfsense/gui.py` are how that config was first made on a fresh
-install (interfaces, rules, Suricata). They're kept for reference.
 
 ## Firewall rules on HOSTNET
 
